@@ -15,4 +15,6 @@ QuoteRequest::getQuotes([
 
 You can also implement in other way you wish using the API documented here: <a href="https://1forge.com/forex-data-api">https://1forge.com/forex-data-api</a>
 
-Please contact me at contact@1forge.com if you have any questions or requests
+Please contact me at contact@1forge.com if you have any questions or requests.
+
+This library is provided without warranty under the MIT license.
