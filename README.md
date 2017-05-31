@@ -17,7 +17,7 @@ PHPForexQuotes is a PHP Library for fetching realtime forex quotes
 - [License / Terms](#license-and-terms)
 
 ## Requirements
-* PHP >= 7.0
+* PHP >= 5.6.4
 
 
 ## Installation
