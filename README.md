@@ -53,14 +53,12 @@ Returns an array of quotes, eg:
  [
      [
        "symbol" => "EURUSD",
-       "bid" => 1.11725,
-       "ask" => 1.11746,
+       "price" => 1.11725,
        "timestamp" => 1496190844,
      ],
      [
        "symbol" => "GBPJPY",
-       "bid" => 142.037,
-       "ask" => 142.09,
+       "price" => 142.037,
        "timestamp" => 1496190844,
      ],
    ]
@@ -78,7 +76,7 @@ You can also implement the api directly in any other way you wish. Full document
 ### Get all quotes
 #### Request
 ```
-GET https://1forge.com/forex-quotes/quotes
+GET https://1forge.com/forex-data-api/1.0.1/quotes
 ```
 
 #### Response
@@ -87,14 +85,12 @@ GET https://1forge.com/forex-quotes/quotes
    {
       symbol: "AUDJPY",
       timestamp: 1496096332,
-      bid: 82.726,
-      ask: 82.757
+      price: 82.726,
    },
    {
       symbol: "AUDUSD",
       timestamp: 1496096332,
-      bid: 0.74396,
-      ask: 0.74418
+      price: 0.74396,
    },
    {
       etc: "........"
@@ -105,7 +101,7 @@ GET https://1forge.com/forex-quotes/quotes
 ### Get specific quotes
 #### Request
 ```
-GET https://1forge.com/forex-quotes/quotes?pairs=EURUSD,GBPJPY,AUDUSD
+GET https://1forge.com/forex-data-api/1.0.1/quotes?pairs=EURUSD,GBPJPY,AUDUSD
 ```
 
 #### Response
@@ -114,20 +110,17 @@ GET https://1forge.com/forex-quotes/quotes?pairs=EURUSD,GBPJPY,AUDUSD
    {
       symbol: "AUDUSD",
       timestamp: 1496096387,
-      bid: 0.74392,
-      ask: 0.74416
+      price: 0.74392,
    },
    {
       symbol: "EURUSD",
       timestamp: 1496096387,
-      bid: 1.11383,
-      ask: 1.11404
+      price: 1.11383,
    },
    {
       symbol: "GBPJPY",
       timestamp: 1496096387,
-      bid: 142.657,
-      ask: 142.715
+      price: 142.657,
    }
 ]
 ```
@@ -136,7 +129,7 @@ GET https://1forge.com/forex-quotes/quotes?pairs=EURUSD,GBPJPY,AUDUSD
 ### Get the symbol list
 #### Request
 ```
-GET https://1forge.com/forex-quotes/symbols
+GET https://1forge.com/forex-data-api/1.0.1/symbols
 ```
 
 #### Response
