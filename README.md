@@ -27,7 +27,7 @@ composer require oneforge/forexquotes
 Or in your composer.json
 ```javascript
 "require": {
-    "oneforge/forexquotes": "dev-master"
+    "oneforge/forexquotes": "1.0.4"
 },
 ```
 ## Usage
