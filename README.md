@@ -1,6 +1,6 @@
-# PHPForexQuotes
+# ForexQuotes
 
-PHPForexQuotes is a PHP Library for fetching realtime forex quotes
+ForexQuotes is a PHP Library for fetching realtime forex quotes
 
 # Table of Contents
 
