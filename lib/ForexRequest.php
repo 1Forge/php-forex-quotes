@@ -9,7 +9,8 @@
 
     use GuzzleHttp\Client;
 
-    class QuoteRequest
+
+    class ForexRequest
     {
         public static function client()
         {
@@ -44,5 +45,19 @@
             }
 
             return $quotes_array;
+        }
+
+        public static function marketIsOpen()
+        {
+            $body = self::client()->get('market_status')->getBody();
+
+            $body = json_decode($body);
+
+            if (property_exists($body, market_is_open))
+            {
+                return (bool)$body->market_is_open;
+            }
+
+            return false;
         }
     }

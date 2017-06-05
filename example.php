@@ -9,10 +9,15 @@
 
     require_once __DIR__ . '/vendor/autoload.php';
 
-    $quotes = QuoteRequest::getQuotes(['AUDUSD',
-                                       'GBPJPY']);
+    $quotes         = ForexRequest::getQuotes(['AUDUSD',
+                                               'GBPJPY']);
+    $symbols        = ForexRequest::getSymbols();
+    $market_is_open = ForexRequest::marketIsOpen();
 
-    $symbols = QuoteRequest::getSymbols();
+    if ($market_is_open)
+    {
+        echo 'yes';
+    }
 
     print_r($quotes);
     print_r($symbols);

@@ -37,16 +37,16 @@ Or in your composer.json
 ```php
 <?php
 
-use OneForge\ForexQuotes\QuoteRequest;
+use OneForge\ForexQuotes\ForexRequest;
 
 //Returns an array of symbols, eg: ['EURUSD', 'GBPJPY']
-QuoteRequest::getSymbols(); 
+ForexRequest::getSymbols(); 
 ```
 ### Get quotes for specified symbols:
 ```php
 <?php
 
-use OneForge\ForexQuotes\QuoteRequest;
+use OneForge\ForexQuotes\ForexRequest;
 
 /* 
 Returns an array of quotes, eg: 
@@ -63,11 +63,28 @@ Returns an array of quotes, eg:
      ],
    ]
 */   
-QuoteRequest::getQuotes([
+ForexRequest::getQuotes([
     'AUDUSD',
     'GBPJPY'
 ]);
 ```
+
+
+### Check if the market is open:
+```php
+<?php
+
+use OneForge\ForexQuotes\ForexRequest;
+
+/* 
+Returns an boolean
+*/   
+if (ForexRequest::marketIsOpen())
+{
+    echo "Market is open";    
+}
+```
+
 
 ## Other implementations
 You can also implement the api directly in any other way you wish. Full documentation is maintained here: <a href="https://1forge.com/forex-data-api">https://1forge.com/forex-data-api</a>
