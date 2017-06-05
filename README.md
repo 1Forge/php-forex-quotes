@@ -72,32 +72,6 @@ QuoteRequest::getQuotes([
 ## Other implementations
 You can also implement the api directly in any other way you wish. Full documentation is maintained here: <a href="https://1forge.com/forex-data-api">https://1forge.com/forex-data-api</a>
 
-
-### Get all quotes
-#### Request
-```
-GET https://1forge.com/forex-data-api/1.0.1/quotes
-```
-
-#### Response
-```javascript
-[
-   {
-      symbol: "AUDJPY",
-      timestamp: 1496096332,
-      price: 82.726,
-   },
-   {
-      symbol: "AUDUSD",
-      timestamp: 1496096332,
-      price: 0.74396,
-   },
-   {
-      etc: "........"
-   }
-]
-```
-
 ### Get specific quotes
 #### Request
 ```
@@ -144,6 +118,21 @@ GET https://1forge.com/forex-data-api/1.0.1/symbols
    "EURGBP",
    "EURJPY",
    "etc..." 
+]
+```
+
+### Get the market status
+#### Request
+```
+GET https://1forge.com/forex-data-api/1.0.1/market_status
+```
+
+#### Response
+```javascript
+[
+     {
+          market_is_open: true
+     }
 ]
 ```
 
