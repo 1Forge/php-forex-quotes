@@ -141,7 +141,7 @@ GET https://forex.1forge.com/1.0.1/symbols
 ### Get the market status
 #### Request
 ```
-GET https://1forge.com/forex-data-api/1.0.1/market_status
+GET https://forex.1forge.com/1.0.1/market_status
 ```
 
 #### Response
