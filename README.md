@@ -92,7 +92,7 @@ You can also implement the api directly in any other way you wish. Full document
 ### Get specific quotes
 #### Request
 ```
-GET https://1forge.com/forex-data-api/1.0.1/quotes?pairs=EURUSD,GBPJPY,AUDUSD
+GET https://forex.1forge.com/1.0.1/quotes?pairs=EURUSD,GBPJPY,AUDUSD
 ```
 
 #### Response
@@ -120,7 +120,7 @@ GET https://1forge.com/forex-data-api/1.0.1/quotes?pairs=EURUSD,GBPJPY,AUDUSD
 ### Get the symbol list
 #### Request
 ```
-GET https://1forge.com/forex-data-api/1.0.1/symbols
+GET https://forex.1forge.com/1.0.1/symbols
 ```
 
 #### Response
@@ -141,7 +141,7 @@ GET https://1forge.com/forex-data-api/1.0.1/symbols
 ### Get the market status
 #### Request
 ```
-GET https://1forge.com/forex-data-api/1.0.1/market_status
+GET https://forex.1forge.com/1.0.1/market_status
 ```
 
 #### Response
