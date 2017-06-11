@@ -15,7 +15,7 @@
         public static function client()
         {
             return new Client([// Base URI is used with relative requests
-                               'base_uri' => 'http://1forge.com/forex-data-api/1.0.1/',
+                               'base_uri' => 'http://forex.1forge.com/1.0.1/',
                                // You can set any number of default request options.
                                'timeout'  => 2.0,
                                'headers'  => ['Content-Type' => 'application/json']]);
