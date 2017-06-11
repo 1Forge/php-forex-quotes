@@ -12,12 +12,14 @@
     $quotes         = ForexRequest::getQuotes(['AUDUSD',
                                                'GBPJPY']);
     $symbols        = ForexRequest::getSymbols();
+    $conversion     = ForexRequest::convert('EUR', 'USD', 100);
     $market_is_open = ForexRequest::marketIsOpen();
-
-    if ($market_is_open)
-    {
-        echo 'yes';
-    }
 
     print_r($quotes);
     print_r($symbols);
+    print_r($conversion);
+
+    if ($market_is_open)
+    {
+        echo 'Market is open!';
+    }

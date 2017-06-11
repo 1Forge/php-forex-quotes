@@ -60,4 +60,11 @@
 
             return false;
         }
+
+        public static function convert($from, $to, $quantity)
+        {
+            $body = self::client()->get('convert?from=' . $from . '&to=' . $to . '&quantity=' . $quantity)->getBody();
+
+            return json_decode($body, true);
+        }
     }
