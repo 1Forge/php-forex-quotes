@@ -89,7 +89,7 @@ use OneForge\ForexQuotes\ForexRequest;
      [timestamp] => 1497187505
  
 */   
-ForexRequest::convert('USD', 'EUR', 100);
+ForexRequest::convert('EUR', 'USD', 100);
 ```
 
 
