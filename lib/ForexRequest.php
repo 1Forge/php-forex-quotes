@@ -60,7 +60,7 @@
 
             return false;
         }
-<<<<<<< HEAD
+
 
         public static function convert($from, $to, $quantity)
         {
@@ -69,6 +69,5 @@
             return json_decode($body, true);
         }
     }
-=======
-    }
->>>>>>> 96fc04789eaf24888044e65a947e216dac2af2f8
+
+
