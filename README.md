@@ -9,6 +9,7 @@ ForexQuotes is a PHP Library for fetching realtime forex quotes
 - [Usage](#usage)
     - [List of Symbols available](#get-the-list-of-available-symbols)
     - [Get quotes for specific symbols](#get-quotes-for-specified-symbols)
+    - [Convert from one currency to another](#convert-from-one-currency-to-another)
 - [Other implementations](#other-implementations)
     - [API Call: Get all quotes](#get-all-quotes)
     - [API Call: Get specific quotes](#get-specific-quotes)
@@ -39,7 +40,9 @@ Or in your composer.json
 
 use OneForge\ForexQuotes\ForexRequest;
 
-//Returns an array of symbols, eg: ['EURUSD', 'GBPJPY']
+/*
+    Returns an array of symbols, eg: ['EURUSD', 'GBPJPY']
+*/
 ForexRequest::getSymbols(); 
 ```
 ### Get quotes for specified symbols:
@@ -70,6 +73,26 @@ ForexRequest::getQuotes([
 ```
 
 
+
+
+### Convert from one currency to another:
+```php
+<?php
+
+use OneForge\ForexQuotes\ForexRequest;
+
+/* 
+ 
+     [value] => 111.961
+     [text] => 100 EUR is worth 111.961 USD
+     [timestamp] => 1497187505
+ 
+*/   
+ForexRequest::convert('USD', 'EUR', 100);
+```
+
+
+
 ### Check if the market is open:
 ```php
 <?php
@@ -77,8 +100,9 @@ ForexRequest::getQuotes([
 use OneForge\ForexQuotes\ForexRequest;
 
 /* 
-Returns an boolean
+    Returns an boolean
 */   
+
 if (ForexRequest::marketIsOpen())
 {
     echo "Market is open";    
@@ -138,6 +162,24 @@ GET https://forex.1forge.com/1.0.1/symbols
 ]
 ```
 
+
+### Convert from one currency to another
+#### Request
+```
+GET https://forex.1forge.com/1.0.1/convert?from=USD&to=EUR&quantity=100
+```
+
+#### Response
+```javascript
+
+{
+     value: 89.3164183,
+     text: "100 USD is worth 89.3164183 EUR",
+     timestamp: 1497186516
+}
+
+```
+
 ### Get the market status
 #### Request
 ```
@@ -146,11 +188,11 @@ GET https://forex.1forge.com/1.0.1/market_status
 
 #### Response
 ```javascript
-[
-     {
-          market_is_open: true
-     }
-]
+
+{
+     market_is_open: true
+}
+
 ```
 
 ## Support and Contact
