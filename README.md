@@ -13,6 +13,7 @@ ForexQuotes is a PHP Library for fetching realtime forex quotes
 - [Other implementations](#other-implementations)
     - [API Call: Get all quotes](#get-all-quotes)
     - [API Call: Get specific quotes](#get-specific-quotes)
+    - [API Call: Convert a currency](#convert-a-currency)
     - [API Call: Get the symbol list](#get-the-symbol-list)
 - [Support / Contact](#support-and-contact)
 - [License / Terms](#license-and-terms)
@@ -163,7 +164,7 @@ GET https://forex.1forge.com/1.0.1/symbols
 ```
 
 
-### Convert from one currency to another
+### Convert a currency
 #### Request
 ```
 GET https://forex.1forge.com/1.0.1/convert?from=USD&to=EUR&quantity=100
