@@ -29,6 +29,13 @@
             return $this->client->get($uri . '&api_key=' . $this->api_key)->getBody();
         }
 
+        public function quota()
+        {
+            $body = $this->fetch('quota?cache=false');
+
+            return json_decode($body, true);
+        }
+
         public function getSymbols()
         {
             $body = $this->fetch('symbols?cache=false');
