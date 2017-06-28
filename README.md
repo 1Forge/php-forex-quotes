@@ -10,10 +10,6 @@ ForexQuotes is a PHP Library for fetching realtime forex quotes
     - [List of Symbols available](#get-the-list-of-available-symbols)
     - [Get quotes for specific symbols](#get-quotes-for-specified-symbols)
     - [Convert from one currency to another](#convert-from-one-currency-to-another)
-- [Other implementations](#other-implementations)
-    - [API Call: Get all quotes](#get-all-quotes)
-    - [API Call: Get specific quotes](#get-specific-quotes)
-    - [API Call: Get the symbol list](#get-the-symbol-list)
 - [Support / Contact](#support-and-contact)
 - [License / Terms](#license-and-terms)
 
@@ -28,10 +24,16 @@ composer require oneforge/forexquotes
 Or in your composer.json
 ```javascript
 "require": {
-    "oneforge/forexquotes": "1.0.5"
+    "oneforge/forexquotes": "2.0.0"
 },
 ```
 ## Usage
+
+### Instantiate the client
+```php
+//You can get an API key for free at 1forge.com
+$client = new ForexDataClient('YOUR_API_KEY');
+```
 
 ### Get the list of available symbols:
 
@@ -40,16 +42,20 @@ Or in your composer.json
 
 use OneForge\ForexQuotes\ForexRequest;
 
+$client = new ForexDataClient('YOUR_API_KEY');
+
 /*
     Returns an array of symbols, eg: ['EURUSD', 'GBPJPY']
 */
-ForexRequest::getSymbols(); 
+$client->getSymbols(); 
 ```
 ### Get quotes for specified symbols:
 ```php
 <?php
 
 use OneForge\ForexQuotes\ForexRequest;
+
+$client = new ForexDataClient('YOUR_API_KEY');
 
 /* 
 Returns an array of quotes, eg: 
@@ -66,7 +72,7 @@ Returns an array of quotes, eg:
      ],
    ]
 */   
-ForexRequest::getQuotes([
+$client->getQuotes([
     'AUDUSD',
     'GBPJPY'
 ]);
@@ -81,6 +87,8 @@ ForexRequest::getQuotes([
 
 use OneForge\ForexQuotes\ForexRequest;
 
+$client = new ForexDataClient('YOUR_API_KEY');
+
 /* 
  
      [value] => 111.961
@@ -88,7 +96,7 @@ use OneForge\ForexQuotes\ForexRequest;
      [timestamp] => 1497187505
  
 */   
-ForexRequest::convert('USD', 'EUR', 100);
+$client->convert('USD', 'EUR', 100);
 ```
 
 
@@ -99,101 +107,38 @@ ForexRequest::convert('USD', 'EUR', 100);
 
 use OneForge\ForexQuotes\ForexRequest;
 
+$client = new ForexDataClient('YOUR_API_KEY');
+
 /* 
     Returns an boolean
 */   
 
-if (ForexRequest::marketIsOpen())
+if ($client->marketIsOpen())
 {
     echo "Market is open";    
 }
 ```
 
+### Check your usage / quota limit:
+```php
+<?php
 
-## Other implementations
-You can also implement the api directly in any other way you wish. Full documentation is maintained here: <a href="https://1forge.com/forex-data-api">https://1forge.com/forex-data-api</a>
+use OneForge\ForexQuotes\ForexRequest;
 
-### Get specific quotes
-#### Request
-```
-GET https://forex.1forge.com/1.0.1/quotes?pairs=EURUSD,GBPJPY,AUDUSD
-```
+$client = new ForexDataClient('YOUR_API_KEY');
 
-#### Response
-```javascript
-[
-   {
-      symbol: "AUDUSD",
-      timestamp: 1496096387,
-      price: 0.74392,
-   },
-   {
-      symbol: "EURUSD",
-      timestamp: 1496096387,
-      price: 1.11383,
-   },
-   {
-      symbol: "GBPJPY",
-      timestamp: 1496096387,
-      price: 142.657,
-   }
-]
+/* 
+    [quota_used]        => 53232,
+    [quota_limit]       => 100000,
+    [quota_remaining]   => 46768,
+    [hours_until_reset] => 11
+    
+*/   
+
+$client->quota();
 ```
 
 
-### Get the symbol list
-#### Request
-```
-GET https://forex.1forge.com/1.0.1/symbols
-```
-
-#### Response
-```javascript
-[
-   "AUDJPY",
-   "AUDUSD",
-   "CHFJPY",
-   "EURAUD",
-   "EURCAD",
-   "EURCHF",
-   "EURGBP",
-   "EURJPY",
-   "etc..." 
-]
-```
-
-
-### Convert from one currency to another
-#### Request
-```
-GET https://forex.1forge.com/1.0.1/convert?from=USD&to=EUR&quantity=100
-```
-
-#### Response
-```javascript
-
-{
-     value: 89.3164183,
-     text: "100 USD is worth 89.3164183 EUR",
-     timestamp: 1497186516
-}
-
-```
-
-### Get the market status
-#### Request
-```
-GET https://forex.1forge.com/1.0.1/market_status
-```
-
-#### Response
-```javascript
-
-{
-     market_is_open: true
-}
-
-```
 
 ## Support and Contact
 Please contact me at contact@1forge.com if you have any questions or requests.

@@ -9,11 +9,12 @@
 
     require_once __DIR__ . '/vendor/autoload.php';
 
-    $quotes         = ForexRequest::getQuotes(['AUDUSD',
-                                               'GBPJPY']);
-    $symbols        = ForexRequest::getSymbols();
-    $conversion     = ForexRequest::convert('EUR', 'USD', 100);
-    $market_is_open = ForexRequest::marketIsOpen();
+    $client         = new ForexDataClient('YOUR_API_KEY');
+    $quotes         = $client->getQuotes(['AUDUSD',
+                                          'GBPJPY']);
+    $symbols        = $client->getSymbols();
+    $conversion     = $client->convert('EUR', 'USD', 100);
+    $market_is_open = $client->marketIsOpen();
 
     print_r($quotes);
     print_r($symbols);

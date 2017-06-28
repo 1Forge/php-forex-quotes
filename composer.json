@@ -1,7 +1,7 @@
 {
   "name": "oneforge/forexquotes",
   "type": "library",
-  "version": "1.0.6",
+  "version": "2.0.0",
   "description": "Library to fetch and parse realtime Forex quotes and convert currencies",
   "keywords": [
     "forex",
