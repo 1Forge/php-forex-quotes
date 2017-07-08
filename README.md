@@ -1,6 +1,6 @@
 # php-forex-quotes
 
-ForexQuotes is a PHP Library for fetching realtime forex quotes
+php-forex-quotes is a PHP Library for fetching realtime forex quotes
 
 # Table of Contents
 
@@ -15,7 +15,7 @@ ForexQuotes is a PHP Library for fetching realtime forex quotes
 
 ## Requirements
 * PHP >= 5.6.4
-
+* An API key which you can obtain for free at http://1forge.com/forex-data-api
 
 ## Installation
 ```
