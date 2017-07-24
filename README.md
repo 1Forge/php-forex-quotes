@@ -31,6 +31,8 @@ Or in your composer.json
 
 ### Instantiate the client
 ```php
+use OneForge\ForexQuotes\ForexDataClient;
+
 //You can get an API key for free at 1forge.com
 $client = new ForexDataClient('YOUR_API_KEY');
 ```
@@ -40,7 +42,7 @@ $client = new ForexDataClient('YOUR_API_KEY');
 ```php
 <?php
 
-use OneForge\ForexQuotes\ForexRequest;
+use OneForge\ForexQuotes\ForexDataClient;
 
 $client = new ForexDataClient('YOUR_API_KEY');
 
@@ -53,7 +55,7 @@ $client->getSymbols();
 ```php
 <?php
 
-use OneForge\ForexQuotes\ForexRequest;
+use OneForge\ForexQuotes\ForexDataClient;
 
 $client = new ForexDataClient('YOUR_API_KEY');
 
@@ -85,7 +87,7 @@ $client->getQuotes([
 ```php
 <?php
 
-use OneForge\ForexQuotes\ForexRequest;
+use OneForge\ForexQuotes\ForexDataClient;
 
 $client = new ForexDataClient('YOUR_API_KEY');
 
@@ -105,7 +107,7 @@ $client->convert('USD', 'EUR', 100);
 ```php
 <?php
 
-use OneForge\ForexQuotes\ForexRequest;
+use OneForge\ForexQuotes\ForexDataClient;
 
 $client = new ForexDataClient('YOUR_API_KEY');
 
@@ -123,7 +125,7 @@ if ($client->marketIsOpen())
 ```php
 <?php
 
-use OneForge\ForexQuotes\ForexRequest;
+use OneForge\ForexQuotes\ForexDataClient;
 
 $client = new ForexDataClient('YOUR_API_KEY');
 
