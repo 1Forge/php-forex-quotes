@@ -9,7 +9,7 @@
 
     require_once __DIR__ . '/vendor/autoload.php';
 
-    $client         = new ForexDataClient('vJHZqgJf7V3tvd7BA3MGThaB3NqVX7FD');
+    $client         = new ForexDataClient('YOUR_API_KEY');
     $quotes         = $client->getQuotes(['AUDUSD',
                                           'GBPJPY']);
     $symbols        = $client->getSymbols();
