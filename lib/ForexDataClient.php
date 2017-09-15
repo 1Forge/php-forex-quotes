@@ -55,6 +55,8 @@
             foreach ($quotes as $quote)
             {
                 $quotes_array[] = ['symbol'    => $quote->symbol,
+                                   'bid'       => $quote->bid,
+                                   'ask'       => $quote->ask,
                                    'price'     => $quote->price,
                                    'timestamp' => $quote->timestamp];
             }
