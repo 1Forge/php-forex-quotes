@@ -43,10 +43,16 @@
             return json_decode($body, true);
         }
 
-        public function getQuotes(array $symbols)
+        public function getQuotes(array $symbols = null)
         {
-            $pairs = implode(",", $symbols);
-            $body  = $this->fetch('quotes?pairs=' . $pairs);
+            if ($symbols === null)
+            {
+                $body  = $this->fetch('quotes?cache=false');
+            }
+            else{
+                $pairs = implode(",", $symbols);
+                $body  = $this->fetch('quotes?pairs=' . $pairs);
+            }
 
             $quotes = json_decode($body);
 
