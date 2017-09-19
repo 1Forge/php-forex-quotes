@@ -20,7 +20,7 @@
             $this->client = new Client([// Base URI is used with relative requests
                                         'base_uri' => 'http://forex.1forge.com/1.0.2/',
                                         // You can set any number of default request options.
-                                        'timeout'  => 2.0,
+                                        'timeout'  => 5.0,
                                         'headers'  => ['Content-Type' => 'application/json']]);
         }
 
