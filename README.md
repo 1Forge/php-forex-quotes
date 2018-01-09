@@ -1,6 +1,6 @@
 # php-forex-quotes
 
-php-forex-quotes is a PHP Library for fetching realtime forex quotes
+php-forex-quotes is a PHP Library for fetching realtime forex quotes. See the examples for REST and WebSocket implementation in the /examples folder.
 
 # Table of Contents
 
@@ -10,6 +10,7 @@ php-forex-quotes is a PHP Library for fetching realtime forex quotes
     - [List of Symbols available](#get-the-list-of-available-symbols)
     - [Get quotes for specific symbols](#get-quotes-for-specified-symbols)
     - [Convert from one currency to another](#convert-from-one-currency-to-another)
+    - [Stream quote updates (WebSocket)](#stream-quote-updates)
 - [Support / Contact](#support-and-contact)
 - [License / Terms](#license-and-terms)
 
@@ -46,9 +47,6 @@ use OneForge\ForexQuotes\ForexDataClient;
 
 $client = new ForexDataClient('YOUR_API_KEY');
 
-/*
-    Returns an array of symbols, eg: ['EURUSD', 'GBPJPY']
-*/
 $client->getSymbols(); 
 ```
 ### Get quotes for specified symbols:
@@ -58,22 +56,7 @@ $client->getSymbols();
 use OneForge\ForexQuotes\ForexDataClient;
 
 $client = new ForexDataClient('YOUR_API_KEY');
-
-/* 
-Returns an array of quotes, eg: 
- [
-     [
-       "symbol" => "EURUSD",
-       "price" => 1.11725,
-       "timestamp" => 1496190844,
-     ],
-     [
-       "symbol" => "GBPJPY",
-       "price" => 142.037,
-       "timestamp" => 1496190844,
-     ],
-   ]
-*/   
+ 
 $client->getQuotes([
     'AUDUSD',
     'GBPJPY'
@@ -90,15 +73,56 @@ $client->getQuotes([
 use OneForge\ForexQuotes\ForexDataClient;
 
 $client = new ForexDataClient('YOUR_API_KEY');
-
-/* 
  
-     [value] => 111.961
-     [text] => 100 EUR is worth 111.961 USD
-     [timestamp] => 1497187505
- 
-*/   
 $client->convert('USD', 'EUR', 100);
+```
+
+
+### Stream quote updates
+WebSocket quote streaming is only available on paid plans.
+
+```php
+
+    use OneForge\ForexQuotes\ForexDataClient;
+
+    $client = new ForexDataClient('YOUR_API_KEY');
+
+    //Handle incoming price updates from the server
+    $client->onUpdate(function($symbol, $data)
+    {
+        echo $symbol . ": " . $data["bid"] . " " .$data["ask"] . " " . $data["price"]."\n";
+    });
+
+    //Connect to the server
+    $client->connect(function($client)
+    {
+        //Subscribe to a single currency pair
+        $client->subscribeTo('EURUSD');
+
+        //Subscribe to an array of currency pairs
+        $client->subscribeTo([
+            'GBPJPY',
+            'AUDCAD',
+            'EURCHF'
+        ]);
+
+        //Subscribe to all currency pairs
+        $client->subscribeToAll();
+
+        //Unsubscribe from a single currency pair
+        $client->unsubscribeFrom('EURUSD');
+
+        //Unsubscribe from an array of currency pairs
+        $client->unsubscribeFrom([
+            'GBPJPY',
+            'AUDCAD',
+            'EURCHF'
+        ]);
+
+        //Unsubscribe from all currency pairs
+        $client->unsubscribeFromAll();
+
+    });
 ```
 
 
@@ -110,10 +134,6 @@ $client->convert('USD', 'EUR', 100);
 use OneForge\ForexQuotes\ForexDataClient;
 
 $client = new ForexDataClient('YOUR_API_KEY');
-
-/* 
-    Returns an boolean
-*/   
 
 if ($client->marketIsOpen())
 {
@@ -127,19 +147,10 @@ if ($client->marketIsOpen())
 
 use OneForge\ForexQuotes\ForexDataClient;
 
-$client = new ForexDataClient('YOUR_API_KEY');
-
-/* 
-    [quota_used]        => 53232,
-    [quota_limit]       => 100000,
-    [quota_remaining]   => 46768,
-    [hours_until_reset] => 11
-    
-*/   
+$client = new ForexDataClient('YOUR_API_KEY'); 
 
 $client->quota();
 ```
-
 
 
 ## Support and Contact

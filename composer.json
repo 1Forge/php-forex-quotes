@@ -19,7 +19,8 @@
   ],
   "require": {
     "guzzlehttp/guzzle": "6.2.*",
-    "php": ">=5.6.4"
+    "php": ">=5.6.4",
+    "wisembly/elephant.io": "^3.3"
   },
   "autoload": {
     "psr-0": {

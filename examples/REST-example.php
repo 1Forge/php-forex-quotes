@@ -5,9 +5,9 @@
      * Created by 1Forge - http://1forge.com
      */
 
-    namespace OneForge\ForexQuotes;
+    require_once __DIR__ . '/../vendor/autoload.php';
 
-    require_once __DIR__ . '/vendor/autoload.php';
+    use OneForge\ForexQuotes\ForexDataClient;
 
     $client         = new ForexDataClient('YOUR_API_KEY');
     $quotes         = $client->getQuotes(['AUDUSD',

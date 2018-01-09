@@ -8,6 +8,8 @@
     namespace OneForge\ForexQuotes;
 
     use GuzzleHttp\Client;
+    use ElephantIO\Client as SocketClient;
+    use ElephantIO\Engine\SocketIO\Version2X;
 
     class ForexDataClient
     {
@@ -18,10 +20,103 @@
             $this->api_key = $api_key;
 
             $this->client = new Client([// Base URI is used with relative requests
-                                        'base_uri' => 'http://forex.1forge.com/1.0.2/',
-                                        // You can set any number of default request options.
+                                        'base_uri' => 'http://forex.1forge.com/1.0.3/',
                                         'timeout'  => 5.0,
                                         'headers'  => ['Content-Type' => 'application/json']]);
+        }
+
+        public function login()
+        {
+            $this->socket_client->emit('login', [$this->api_key]);
+        }
+
+        public function handleIncomingMessage($message)
+        {
+            switch ($message["event"])
+            {
+                case "update":
+                    if ($this->update_function)
+                    {
+                        $update_function = $this->update_function;
+
+                        $data = $message["data"];
+                        $update_function($data["symbol"], $data);
+                    }
+                    break;
+                case "message":
+                    echo $message["data"]."\n";
+                    break;
+                case "login":
+                    $this->login();
+                    break;
+                case "post_login_success":
+                    $this->handlePostLoginSuccess();
+                    break;
+            }
+        }
+
+        public function onUpdate($update_function)
+        {
+            $this->update_function = $update_function;
+        }
+
+        public function subscribeTo($symbols)
+        {
+            foreach ((array) $symbols AS $symbol)
+            {
+                $this->socket_client->emit('subscribe_to', [$symbol]);
+            }
+        }
+
+        public function subscribeToAll()
+        {
+            $this->socket_client->emit('subscribe_to_all', []);
+        }
+
+        public function unsubscribeFrom($symbols)
+        {
+            foreach ((array) $symbols AS $symbol)
+            {
+                $this->socket_client->emit('unsubscribe_from', [$symbol]);
+            }
+        }
+
+        public function unsubscribeFromAll()
+        {
+            $this->socket_client->emit('unsubscribe_from_all', []);
+        }
+
+        private function handlePostLoginSuccess()
+        {
+            if (!$this->post_login)
+            {
+                return;
+            }
+
+            $post_login = $this->post_login;
+
+            $post_login($this);
+        }
+
+        public function connect($callback)
+        {
+            $this->post_login = $callback;
+
+            $this->socket_client = new SocketClient(
+                new Version2X('https://socket.forex.1forge.com:3000')
+            );
+
+            $this->socket_client->initialize();
+            $this->login();
+
+            while (true)
+            {
+                $message = $this->socket_client->read();
+
+                $message = $this->decodeSocketMessage($message);
+
+                $this->handleIncomingMessage($message);
+            }
         }
 
         public function fetch($uri)
@@ -91,6 +186,25 @@
             return json_decode($body, true);
         }
 
+        private function decodeSocketMessage($message)
+        {
+            $cleaned = str_replace("42[", "", $message);
+            $cleaned = str_replace("]", "", $cleaned);
+
+            $event = explode(",", $cleaned)[0];
+            $data = str_replace($event.",", "", $cleaned);
+            $event = str_replace('"', "", $event);
+
+            if ($data)
+            {
+                $data = json_decode($data, true);
+            }
+
+            return [
+                "event" => $event,
+                "data" => $data
+            ];
+        }
     }
 
 
