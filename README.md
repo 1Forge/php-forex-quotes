@@ -83,6 +83,7 @@ WebSocket quote streaming is only available on paid plans.
 
 ```php
 <?php
+
 use OneForge\ForexQuotes\ForexDataClient;
 
 $client = new ForexDataClient('YOUR_API_KEY');
