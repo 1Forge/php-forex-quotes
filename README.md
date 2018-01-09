@@ -82,47 +82,47 @@ $client->convert('USD', 'EUR', 100);
 WebSocket quote streaming is only available on paid plans.
 
 ```php
+<?php
+use OneForge\ForexQuotes\ForexDataClient;
 
-    use OneForge\ForexQuotes\ForexDataClient;
+$client = new ForexDataClient('YOUR_API_KEY');
 
-    $client = new ForexDataClient('YOUR_API_KEY');
+//Handle incoming price updates from the server
+$client->onUpdate(function($symbol, $data)
+{
+    echo $symbol . ": " . $data["bid"] . " " .$data["ask"] . " " . $data["price"]."\n";
+});
 
-    //Handle incoming price updates from the server
-    $client->onUpdate(function($symbol, $data)
-    {
-        echo $symbol . ": " . $data["bid"] . " " .$data["ask"] . " " . $data["price"]."\n";
-    });
+//Connect to the server
+$client->connect(function($client)
+{
+    //Subscribe to a single currency pair
+    $client->subscribeTo('EURUSD');
 
-    //Connect to the server
-    $client->connect(function($client)
-    {
-        //Subscribe to a single currency pair
-        $client->subscribeTo('EURUSD');
+    //Subscribe to an array of currency pairs
+    $client->subscribeTo([
+        'GBPJPY',
+        'AUDCAD',
+        'EURCHF'
+    ]);
 
-        //Subscribe to an array of currency pairs
-        $client->subscribeTo([
-            'GBPJPY',
-            'AUDCAD',
-            'EURCHF'
-        ]);
+    //Subscribe to all currency pairs
+    $client->subscribeToAll();
 
-        //Subscribe to all currency pairs
-        $client->subscribeToAll();
+    //Unsubscribe from a single currency pair
+    $client->unsubscribeFrom('EURUSD');
 
-        //Unsubscribe from a single currency pair
-        $client->unsubscribeFrom('EURUSD');
+    //Unsubscribe from an array of currency pairs
+    $client->unsubscribeFrom([
+        'GBPJPY',
+        'AUDCAD',
+        'EURCHF'
+    ]);
 
-        //Unsubscribe from an array of currency pairs
-        $client->unsubscribeFrom([
-            'GBPJPY',
-            'AUDCAD',
-            'EURCHF'
-        ]);
+    //Unsubscribe from all currency pairs
+    $client->unsubscribeFromAll();
 
-        //Unsubscribe from all currency pairs
-        $client->unsubscribeFromAll();
-
-    });
+});
 ```
 
 
