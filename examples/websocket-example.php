@@ -1,9 +1,9 @@
 <?php
 
     /*
-     * This library is provided without warranty under the MIT license.
-     * Created by 1Forge - http://1forge.com
-     */
+    * This library is provided without warranty under the MIT license
+    * Created by Jacob Davis <jacob@1forge.com>
+    */
 
     require_once __DIR__ . '/../vendor/autoload.php';
 
