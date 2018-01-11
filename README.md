@@ -10,7 +10,8 @@ php-forex-quotes is a PHP Library for fetching realtime forex quotes. See the ex
     - [List of Symbols available](#get-the-list-of-available-symbols)
     - [Get quotes for specific symbols](#get-quotes-for-specified-symbols)
     - [Convert from one currency to another](#convert-from-one-currency-to-another)
-    - [Stream quote updates (WebSocket)](#stream-quote-updates)
+    - [Check if the market is open](#check-if-the-market-is-open)
+    - [Stream quote updates via WebSocket](#stream-quote-updates)
 - [Support / Contact](#support-and-contact)
 - [License / Terms](#license-and-terms)
 
@@ -25,7 +26,7 @@ composer require oneforge/forexquotes
 Or in your composer.json
 ```javascript
 "require": {
-    "oneforge/forexquotes": "2.0.3"
+    "oneforge/forexquotes": "2.0.5"
 },
 ```
 ## Usage
@@ -41,53 +42,37 @@ $client = new ForexDataClient('YOUR_API_KEY');
 ### Get the list of available symbols:
 
 ```php
-<?php
-
-use OneForge\ForexQuotes\ForexDataClient;
-
-$client = new ForexDataClient('YOUR_API_KEY');
-
 $client->getSymbols(); 
 ```
 ### Get quotes for specified symbols:
 ```php
-<?php
-
-use OneForge\ForexQuotes\ForexDataClient;
-
-$client = new ForexDataClient('YOUR_API_KEY');
- 
 $client->getQuotes([
     'AUDUSD',
     'GBPJPY'
 ]);
 ```
-
-
-
-
 ### Convert from one currency to another:
 ```php
-<?php
-
-use OneForge\ForexQuotes\ForexDataClient;
-
-$client = new ForexDataClient('YOUR_API_KEY');
- 
 $client->convert('USD', 'EUR', 100);
 ```
 
+### Check if the market is open:
+```php
+if ($client->marketIsOpen())
+{
+    echo "Market is open";    
+}
+```
 
-### Stream quote updates
+### Check your usage / quota limit:
+```php
+$client->quota();
+```
+
+### Stream quote updates:
 WebSocket quote streaming is only available on paid plans.
 
 ```php
-<?php
-
-use OneForge\ForexQuotes\ForexDataClient;
-
-$client = new ForexDataClient('YOUR_API_KEY');
-
 //Handle incoming price updates from the server
 $client->onUpdate(function($symbol, $data)
 {
@@ -124,33 +109,6 @@ $client->connect(function($client)
     $client->unsubscribeFromAll();
 
 });
-```
-
-
-
-### Check if the market is open:
-```php
-<?php
-
-use OneForge\ForexQuotes\ForexDataClient;
-
-$client = new ForexDataClient('YOUR_API_KEY');
-
-if ($client->marketIsOpen())
-{
-    echo "Market is open";    
-}
-```
-
-### Check your usage / quota limit:
-```php
-<?php
-
-use OneForge\ForexQuotes\ForexDataClient;
-
-$client = new ForexDataClient('YOUR_API_KEY'); 
-
-$client->quota();
 ```
 
 
