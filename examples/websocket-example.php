@@ -17,6 +17,12 @@
         echo $symbol . ": " . $data["bid"] . " " .$data["ask"] . " " . $data["price"]."\n";
     });
 
+    //Handle non-price update messages
+    $client->onMessage(function($message)
+    {
+        echo $message;
+    });
+
     //Connect to the server
     $client->connect(function($client)
     {
@@ -45,5 +51,4 @@
 
         //Unsubscribe from all currency pairs
         $client->unsubscribeFromAll();
-
     });

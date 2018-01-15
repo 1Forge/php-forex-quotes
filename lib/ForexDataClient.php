@@ -35,7 +35,7 @@
             switch ($message["event"])
             {
                 case "update":
-                    if ($this->update_function)
+                    if (property_exists($this, 'update_function'))
                     {
                         $update_function = $this->update_function;
 
@@ -44,7 +44,13 @@
                     }
                     break;
                 case "message":
-                    echo $message["data"]."\n";
+                    if (property_exists($this, 'message_function'))
+                    {
+                        $message_function = $this->message_function;
+
+                        $data = $message["data"];
+                        $message_function($data);
+                    }
                     break;
                 case "login":
                     $this->login();
@@ -58,6 +64,11 @@
         public function onUpdate($update_function)
         {
             $this->update_function = $update_function;
+        }
+
+        public function onMessage($message_function)
+        {
+            $this->message_function = $message_function;
         }
 
         public function subscribeTo($symbols)
