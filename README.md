@@ -12,6 +12,7 @@ php-forex-quotes is a PHP Library for fetching realtime forex quotes. See the ex
     - [Convert from one currency to another](#convert-from-one-currency-to-another)
     - [Check if the market is open](#check-if-the-market-is-open)
     - [Stream quote updates via WebSocket](#stream-quote-updates)
+- [Contributing](#contributing)
 - [Support / Contact](#support-and-contact)
 - [License / Terms](#license-and-terms)
 
@@ -119,6 +120,8 @@ $client->connect(function($client)
 });
 ```
 
+## Contributing
+Thank you for considering contributing! Any issues, bug fixes, suggestions, improvements or help in any other way is always appreciated.  Please feel free to open an issue or create a pull request.
 
 ## Support and Contact
 Please contact me at contact@1forge.com if you have any questions or requests.
