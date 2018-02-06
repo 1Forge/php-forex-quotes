@@ -23,6 +23,15 @@
                                         'base_uri' => 'http://forex.1forge.com/1.0.3/',
                                         'timeout'  => 5.0,
                                         'headers'  => ['Content-Type' => 'application/json']]);
+
+            $this->last_heartbeat = time();
+            $this->heartbeat_interval = 15;
+        }
+
+        public function sendHeartbeat()
+        {
+            $this->socket_client->emit('heartbeat', ['ok']);
+            $this->last_heartbeat = time();
         }
 
         public function login()
@@ -30,8 +39,17 @@
             $this->socket_client->emit('login', [$this->api_key]);
         }
 
+        public function shouldSendHeartbeat()
+        {
+            return time() - $this->last_heartbeat > $this->heartbeat_interval;
+        }
+
         public function handleIncomingMessage($message)
         {
+            if ($this->shouldSendHeartbeat())
+            {
+                $this->sendHeartbeat();
+            }
             switch ($message["event"])
             {
                 case "update":
