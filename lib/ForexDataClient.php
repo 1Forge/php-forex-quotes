@@ -8,8 +8,7 @@
 namespace OneForge\ForexQuotes;
 
 use GuzzleHttp\Client;
-use ElephantIO\Client as SocketClient;
-use ElephantIO\Engine\SocketIO\Version2X;
+use Wrench\Client as WebSocket;
 
 class ForexDataClient
 {
@@ -20,36 +19,23 @@ class ForexDataClient
         $this->api_key = $api_key;
 
         $this->client = new Client([// Base URI is used with relative requests
-                                    'base_uri' => 'http://forex.1forge.com/1.0.3/',
+                                    'base_uri' => 'https://api.1forge.com/',
                                     'timeout'  => 5.0,
                                     'headers'  => ['Content-Type' => 'application/json']]);
-
-        $this->last_heartbeat = time();
-        $this->heartbeat_interval = 15;
     }
 
-    public function sendHeartbeat()
+    public function beat()
     {
-        $this->socket_client->emit('heartbeat', ['ok']);
-        $this->last_heartbeat = time();
+        $this->socket_client->sendData('beat');
     }
 
     public function login()
     {
-        $this->socket_client->emit('login', [$this->api_key]);
-    }
-
-    public function shouldSendHeartbeat()
-    {
-        return time() - $this->last_heartbeat > $this->heartbeat_interval;
+        $this->socket_client->sendData('login|'.$this->api_key);
     }
 
     public function handleIncomingMessage($message)
-    {
-        if($this->shouldSendHeartbeat())
-        {
-            $this->sendHeartbeat();
-        }
+    {   
         switch ($message["event"])
         {
             case "update":
@@ -69,6 +55,9 @@ class ForexDataClient
                 break;
             case "post_login_success":
                 $this->handlePostLoginSuccess();
+                break;
+            case "heart":
+                $this->beat();
                 break;
             case "force_close":
                 $this->handleMessage("The connection was forced closed by the server");
@@ -115,26 +104,26 @@ class ForexDataClient
     {
         foreach ((array)$symbols AS $symbol)
         {
-            $this->socket_client->emit('subscribe_to', [$symbol]);
+            $this->socket_client->sendData("subscribe_to|$symbol");
         }
     }
 
     public function subscribeToAll()
     {
-        $this->socket_client->emit('subscribe_to_all', []);
+        $this->socket_client->sendData('subscribe_to_all');
     }
 
     public function unsubscribeFrom($symbols)
     {
         foreach ((array)$symbols AS $symbol)
         {
-            $this->socket_client->emit('unsubscribe_from', [$symbol]);
+            $this->socket_client->sendData("unsubscribe_from|$symbol");
         }
     }
 
     public function unsubscribeFromAll()
     {
-        $this->socket_client->emit('unsubscribe_from_all', []);
+        $this->socket_client->sendData('unsubscribe_from_all');
     }
 
     private function handlePostLoginSuccess()
@@ -153,17 +142,22 @@ class ForexDataClient
     {
         $this->post_login = $callback;
 
-        $this->socket_client = new SocketClient(new Version2X('https://socket.forex.1forge.com:3000'));
+        $this->socket_client = new WebSocket('wss://api.1forge.com/socket','http://localhost');
+        $this->socket_client->connect();
 
-        $this->socket_client->initialize();
+        $this->login();
 
-        while (true)
-        {
-            $message = $this->socket_client->read();
+        // $this->socket_client->send("Hello WebSocket.org!");
 
-            $message = $this->decodeSocketMessage($message);
+        while(true){
+            $receive = $this->socket_client->receive();
+            if(isset($receive) && !empty($receive)){
+                foreach($receive as $id => $body){
+                    $message = $this->decodeSocketMessage($body);
+                    $this->handleIncomingMessage($message);
+                }
 
-            $this->handleIncomingMessage($message);
+            }
         }
     }
 
