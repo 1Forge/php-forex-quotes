@@ -2,7 +2,7 @@
 
     /*
     * This library is provided without warranty under the MIT license
-    * Created by Jacob Davis <jacob@1forge.com>
+    * Created by 1Forge <contact@1forge.com>
     */
 
     require_once __DIR__ . '/../vendor/autoload.php';

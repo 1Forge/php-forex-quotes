@@ -142,7 +142,7 @@ class ForexDataClient
     {
         $this->post_login = $callback;
 
-        $this->socket_client = new WebSocket('wss://api.1forge.com/socket','http://localhost');
+        $this->socket_client = new WebSocket('wss://sockets.1forge.com/socket','http://localhost');
         $this->socket_client->connect();
 
         $this->login();
