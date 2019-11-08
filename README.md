@@ -29,7 +29,7 @@ composer require oneforge/forexquotes
 Or in your composer.json
 ```javascript
 "require": {
-    "oneforge/forexquotes": "2.0.8"
+    "oneforge/forexquotes": "3.1.0"
 },
 ```
 ## Usage
