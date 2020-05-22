@@ -19,7 +19,7 @@ class ForexDataClient
         $this->api_key = $api_key;
 
         $this->client = new Client([// Base URI is used with relative requests
-                                    'base_uri' => 'https://api.1forge.com/',
+                                    'base_uri' => 'https://beta.1forge.com/',
                                     'timeout'  => 5.0,
                                     'headers'  => ['Content-Type' => 'application/json']]);
     }
@@ -142,7 +142,7 @@ class ForexDataClient
     {
         $this->post_login = $callback;
 
-        $this->socket_client = new WebSocket('wss://sockets.1forge.com/socket','http://localhost');
+        $this->socket_client = new WebSocket('wss://betaws.1forge.com/socket','http://localhost');
         $this->socket_client->connect();
 
         $this->login();
@@ -189,20 +189,35 @@ class ForexDataClient
         else
         {
             $pairs = implode(",", $symbols);
-            $body = $this->fetch('quotes?pairs=' . $pairs);
+            print("Here pairs". strlen($pairs));
+            try{
+                if(strlen($pairs) > 7664)
+                {
+                //    return TimeoutError('No more than 957 pairs');
+                    $body = null;
+                }
+                else
+                {
+                    $body = $this->fetch('quotes?pairs=' . $pairs);
+                }
+            } catch(Exception $e){
+                echo 'NOoooooo';
+                echo $e->getMessage();
+            }
+          
         }
-
+       
         $quotes = json_decode($body);
 
         $quotes_array = [];
 
         foreach ($quotes as $quote)
         {
-            $quotes_array[] = ['symbol'    => $quote->symbol,
-                               'bid'       => $quote->bid,
-                               'ask'       => $quote->ask,
-                               'price'     => $quote->price,
-                               'timestamp' => $quote->timestamp];
+            $quotes_array[] = ['s'    => $quote->s,
+                               'b'       => $quote->b,
+                               'a'       => $quote->a,
+                               'p'     => $quote->p,
+                               't' => $quote->t];
         }
 
         return $quotes_array;
