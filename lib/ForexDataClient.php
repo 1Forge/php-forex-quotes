@@ -193,16 +193,15 @@ class ForexDataClient
             try{
                 if(strlen($pairs) > 7664)
                 {
-                //    return TimeoutError('No more than 957 pairs');
-                    $body = null;
+                   throw new \Exception('No more than 957 pairs');
                 }
                 else
                 {
                     $body = $this->fetch('quotes?pairs=' . $pairs);
                 }
-            } catch(Exception $e){
-                echo 'NOoooooo';
+            } catch(\Exception $e){
                 echo $e->getMessage();
+                exit();
             }
           
         }
