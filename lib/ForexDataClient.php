@@ -44,7 +44,7 @@ class ForexDataClient
                     $update_function = $this->update_function;
 
                     $data = $message["data"];
-                    $update_function($data["symbol"], $data);
+                    $update_function($data["s"], $data);
                 }
                 break;
             case "message":
@@ -245,11 +245,10 @@ class ForexDataClient
 
     private function decodeSocketMessage($message)
     {
-        $cleaned = str_replace("42[", "", $message);
-        $cleaned = str_replace("]", "", $cleaned);
-
-        $event = explode(",", $cleaned)[0];
-        $data = str_replace($event . ",", "", $cleaned);
+        // $cleaned = str_replace("42[", "", $message);
+        // $cleaned = str_replace("]", "", $cleaned);
+        $event = explode("|", $message)[0];
+        $data = str_replace($event . "|", "", $message);
         $event = str_replace('"', "", $event);
 
         if($data)

@@ -125,25 +125,23 @@ require("./vendor/autoload.php");
     //                                             ]);
     // print_r($quotes);
  
-    //  //Connect to the server
-    print_r("Triggered");
+    //Handle incoming price updates from the server
+    $client->onUpdate(function($symbol, $data)
+    {
+        echo $symbol . ": " . $data["bid"] . " " .$data["ask"] . " " . $data["price"]."\n";
+    });
+
+    //Handle non-price update messages
+    $client->onMessage(function($message)
+    {
+        echo $message;
+    });
+
+    //Connect to the server
     $client->connect(function($client)
-     {print_r("Triggered111");
-         //Subscribe to a single currency pair
-         $client->subscribeTo('BTC/USD');
-         print_r("Triggered222");
-     });
-    // //Handle incoming price updates from the server
-    //  $client->onUpdate(function($symbol, $data)
-    //  {
-    //      print_r($data);
-    //      echo $symbol . ": " . $data["bid"] . " " .$data["ask"] . " " . $data["price"]."\n";
-    //  });
- 
-    //  //Handle non-price update messages
-    print_r("Triggered333");
-     $message1 = $client->onMessage(function($message)
-     {print_r("Triggered4444");
-         echo $message;
-     });
-     print_r($message1);
+    {
+        //Subscribe to a single currency pair
+        $client->subscribeTo('EUR/USD');
+
+
+    });

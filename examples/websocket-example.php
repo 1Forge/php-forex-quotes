@@ -9,12 +9,12 @@
 
     use OneForge\ForexQuotes\ForexDataClient;
 
-    $client = new ForexDataClient('YOUR_API_KEY');
+    $client = new ForexDataClient('0JHZqgJf7V3tvd7BA3MGThQB3NqVX7F9');
 
     //Handle incoming price updates from the server
-    $client->onUpdate(function($symbol, $data)
+    $client->onUpdate(function($s, $data)
     {
-        echo $symbol . ": " . $data["bid"] . " " .$data["ask"] . " " . $data["price"]."\n";
+        echo $s . ": " . $data["b"] . " " .$data["a"] . " " . $data["p"]."\n";
     });
 
     //Handle non-price update messages
@@ -27,26 +27,26 @@
     $client->connect(function($client)
     {
         //Subscribe to a single currency pair
-        $client->subscribeTo('EURUSD');
+        $client->subscribeTo('EUR/USD');
 
         //Subscribe to an array of currency pairs
         $client->subscribeTo([
-            'GBPJPY',
-            'AUDCAD',
-            'EURCHF'
+            'GBP/JPY',
+            'AUD/CAD',
+            'EUR/CHF'
         ]);
 
         //Subscribe to all currency pairs
         $client->subscribeToAll();
 
         //Unsubscribe from a single currency pair
-        $client->unsubscribeFrom('EURUSD');
+        $client->unsubscribeFrom('EUR/USD');
 
         //Unsubscribe from an array of currency pairs
         $client->unsubscribeFrom([
-            'GBPJPY',
-            'AUDCAD',
-            'EURCHF'
+            'GBP/JPY',
+            'AUD/CAD',
+            'EUR/CHF'
         ]);
 
         //Unsubscribe from all currency pairs
