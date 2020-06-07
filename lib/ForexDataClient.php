@@ -19,7 +19,7 @@ class ForexDataClient
         $this->api_key = $api_key;
 
         $this->client = new Client([// Base URI is used with relative requests
-                                    'base_uri' => 'https://beta.1forge.com/',
+                                    'base_uri' => 'https://api.1forge.com/',
                                     'timeout'  => 5.0,
                                     'headers'  => ['Content-Type' => 'application/json']]);
     }
@@ -142,7 +142,7 @@ class ForexDataClient
     {
         $this->post_login = $callback;
 
-        $this->socket_client = new WebSocket('wss://betaws.1forge.com/socket','http://localhost');
+        $this->socket_client = new WebSocket('wss://sockets.1forge.com/socket','http://localhost');
         $this->socket_client->connect();
 
         $this->login();
