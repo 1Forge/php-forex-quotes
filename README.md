@@ -52,8 +52,8 @@ $client->getSymbols();
 ### Get quotes for specified symbols:
 ```php
 $client->getQuotes([
-    'AUDUSD',
-    'GBPJPY'
+    'AUD/USD',
+    'GBP/JPY'
 ]);
 ```
 ### Convert from one currency to another:
@@ -81,7 +81,7 @@ WebSocket quote streaming is only available on paid plans.
 //Handle incoming price updates from the server
 $client->onUpdate(function($symbol, $data)
 {
-    echo $symbol . ": " . $data["bid"] . " " .$data["ask"] . " " . $data["price"]."\n";
+    echo $symbol . ": " . $data["b"] . " " .$data["a"] . " " . $data["p"]."\n";
 });
 
 //Handle non-price update messages
@@ -94,26 +94,26 @@ $client->onMessage(function($message)
 $client->connect(function($client)
 {
     //Subscribe to a single currency pair
-    $client->subscribeTo('EURUSD');
+    $client->subscribeTo('EUR/USD');
 
     //Subscribe to an array of currency pairs
     $client->subscribeTo([
-        'GBPJPY',
-        'AUDCAD',
-        'EURCHF'
+        'GBP/JPY',
+        'AUD/CAD',
+        'EUR/CHF'
     ]);
 
     //Subscribe to all currency pairs
     $client->subscribeToAll();
 
     //Unsubscribe from a single currency pair
-    $client->unsubscribeFrom('EURUSD');
+    $client->unsubscribeFrom('EUR/USD');
 
     //Unsubscribe from an array of currency pairs
     $client->unsubscribeFrom([
-        'GBPJPY',
-        'AUDCAD',
-        'EURCHF'
+        'GBP/JPY',
+        'AUD/CAD',
+        'EUR/CHF'
     ]);
 
     //Unsubscribe from all currency pairs
