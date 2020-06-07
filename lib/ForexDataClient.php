@@ -44,7 +44,7 @@ class ForexDataClient
                     $update_function = $this->update_function;
 
                     $data = $message["data"];
-                    $update_function($data["symbol"], $data);
+                    $update_function($data["s"], $data);
                 }
                 break;
             case "message":
@@ -189,20 +189,34 @@ class ForexDataClient
         else
         {
             $pairs = implode(",", $symbols);
-            $body = $this->fetch('quotes?pairs=' . $pairs);
+            print("Here pairs". strlen($pairs));
+            try{
+                if(strlen($pairs) > 7664)
+                {
+                   throw new \Exception('No more than 957 pairs');
+                }
+                else
+                {
+                    $body = $this->fetch('quotes?pairs=' . $pairs);
+                }
+            } catch(\Exception $e){
+                echo $e->getMessage();
+                exit();
+            }
+          
         }
-
+       
         $quotes = json_decode($body);
 
         $quotes_array = [];
 
         foreach ($quotes as $quote)
         {
-            $quotes_array[] = ['symbol'    => $quote->symbol,
-                               'bid'       => $quote->bid,
-                               'ask'       => $quote->ask,
-                               'price'     => $quote->price,
-                               'timestamp' => $quote->timestamp];
+            $quotes_array[] = ['s'    => $quote->s,
+                               'b'       => $quote->b,
+                               'a'       => $quote->a,
+                               'p'     => $quote->p,
+                               't' => $quote->t];
         }
 
         return $quotes_array;
@@ -231,11 +245,10 @@ class ForexDataClient
 
     private function decodeSocketMessage($message)
     {
-        $cleaned = str_replace("42[", "", $message);
-        $cleaned = str_replace("]", "", $cleaned);
-
-        $event = explode(",", $cleaned)[0];
-        $data = str_replace($event . ",", "", $cleaned);
+        // $cleaned = str_replace("42[", "", $message);
+        // $cleaned = str_replace("]", "", $cleaned);
+        $event = explode("|", $message)[0];
+        $data = str_replace($event . "|", "", $message);
         $event = str_replace('"', "", $event);
 
         if($data)
