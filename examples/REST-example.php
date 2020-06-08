@@ -10,8 +10,8 @@
     use OneForge\ForexQuotes\ForexDataClient;
 
     $client         = new ForexDataClient('YOUR_API_KEY');
-    $quotes         = $client->getQuotes(['AUDUSD',
-                                          'GBPJPY']);
+    $quotes         = $client->getQuotes(['AUD/USD',
+                                          'GBP/JPY']);
     $symbols        = $client->getSymbols();
     $conversion     = $client->convert('EUR', 'USD', 100);
     $quota          = $client->quota();
