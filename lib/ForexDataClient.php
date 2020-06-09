@@ -189,7 +189,6 @@ class ForexDataClient
         else
         {
             $pairs = implode(",", $symbols);
-            print("Here pairs". strlen($pairs));
             try{
                 if(strlen($pairs) > 7664)
                 {
