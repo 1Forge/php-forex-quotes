@@ -5,13 +5,13 @@
     * Created by 1Forge <contact@1forge.com>
     */
 
-    require_once __DIR__ . '/../vendor/autoload.php';
+    require_once __DIR__ . './vendor/autoload.php';
 
     use OneForge\ForexQuotes\ForexDataClient;
 
     $client         = new ForexDataClient('YOUR_API_KEY');
-    $quotes         = $client->getQuotes(['AUDUSD',
-                                          'GBPJPY']);
+    $quotes         = $client->getQuotes(['AUD/USD',
+                                          'GBP/JPY']);
     $symbols        = $client->getSymbols();
     $conversion     = $client->convert('EUR', 'USD', 100);
     $quota          = $client->quota();

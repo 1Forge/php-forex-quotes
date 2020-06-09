@@ -19,7 +19,7 @@ php-forex-quotes is a PHP Library for fetching realtime forex quotes. See the ex
 - [License / Terms](#license-and-terms)
 
 ## Requirements
-* PHP >= 5.6.4
+* PHP >= 6.0.1
 * An API key which you can obtain for free at http://1forge.com/forex-data-api
 
 ## Installation
@@ -29,7 +29,7 @@ composer require oneforge/forexquotes
 Or in your composer.json
 ```javascript
 "require": {
-    "oneforge/forexquotes": "3.1.0"
+    "oneforge/forexquotes": "^6.0"
 },
 ```
 ## Usage
@@ -52,8 +52,8 @@ $client->getSymbols();
 ### Get quotes for specified symbols:
 ```php
 $client->getQuotes([
-    'AUDUSD',
-    'GBPJPY'
+    'AUD/USD',
+    'GBP/JPY'
 ]);
 ```
 ### Convert from one currency to another:
@@ -98,22 +98,22 @@ $client->connect(function($client)
 
     //Subscribe to an array of currency pairs
     $client->subscribeTo([
-        'GBPJPY',
-        'AUDCAD',
-        'EURCHF'
+        'GBP/JPY',
+        'AUD/CAD',
+        'EUR/CHF'
     ]);
 
     //Subscribe to all currency pairs
     $client->subscribeToAll();
 
     //Unsubscribe from a single currency pair
-    $client->unsubscribeFrom('EURUSD');
+    $client->unsubscribeFrom('EUR/USD');
 
     //Unsubscribe from an array of currency pairs
     $client->unsubscribeFrom([
-        'GBPJPY',
-        'AUDCAD',
-        'EURCHF'
+        'GBP/JPY',
+        'AUD/CAD',
+        'EUR/CHF'
     ]);
 
     //Unsubscribe from all currency pairs
