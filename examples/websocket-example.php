@@ -9,7 +9,7 @@
 
     use OneForge\ForexQuotes\ForexDataClient;
 
-    $client = new ForexDataClient('0JHZqgJf7V3tvd7BA3MGThQB3NqVX7F9');
+    $client = new ForexDataClient('YOUR_API_KEY');
 
     //Handle incoming price updates from the server
     $client->onUpdate(function($s, $data)
