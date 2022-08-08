@@ -5,7 +5,7 @@
     * Created by 1Forge <contact@1forge.com>
     */
 
-    require_once __DIR__ . './vendor/autoload.php';
+    require_once __DIR__.'/vendor/autoload.php';
 
     use OneForge\ForexQuotes\ForexDataClient;
 
