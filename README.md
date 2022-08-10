@@ -1,6 +1,6 @@
 # php-forex-quotes
 
-php-forex-quotes is a PHP Library for fetching realtime forex quotes. See the examples for REST and WebSocket implementation in the [/examples](https://github.com/1Forge/php-forex-quotes/tree/master/examples) folder.
+php-forex-quotes is a 1Forge PHP Library for fetching realtime forex quotes. See the examples for REST and WebSocket implementation in the [/examples](https://github.com/1Forge/php-forex-quotes/tree/master/examples) folder.
 
 <a href="#">![1Forge Data](https://1forge.com/images/1forge.gif)</a>
 
