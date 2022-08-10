@@ -20,7 +20,7 @@ php-forex-quotes is a 1Forge PHP Library for fetching realtime forex quotes. See
 
 ## Requirements
 * PHP >= 6.0.1
-* An API key which you can obtain for free at http://1forge.com/forex-data-api
+* An API key which you can obtain for free at https://1forge.com/register
 
 ## Installation
 ```
