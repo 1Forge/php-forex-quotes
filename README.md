@@ -27,6 +27,7 @@ php-forex-quotes is a 1Forge PHP Library for fetching realtime forex quotes. See
 composer require oneforge/forexquotes
 ```
 Or in your composer.json
+
 ```javascript
 "require": {
     "oneforge/forexquotes": "~6.0"
