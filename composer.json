@@ -18,6 +18,7 @@
     }
   ],
   "require": {
+    "php": ">=5.6.4",
     "guzzlehttp/guzzle": "^7.0",
     "wrench/wrench": "^2.0"
   },
