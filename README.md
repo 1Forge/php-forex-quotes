@@ -29,7 +29,7 @@ composer require oneforge/forexquotes
 Or in your composer.json
 ```javascript
 "require": {
-    "oneforge/forexquotes": "^6.0"
+    "oneforge/forexquotes": "~6.0"
 },
 ```
 ## Usage
